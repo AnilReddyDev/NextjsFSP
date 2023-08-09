@@ -20,8 +20,9 @@ export default function LoginPage() {
             isLoading(true);
             const response = await axios.post("/api/users/login",user);
             console.log("Login is successfull",response.data);
-            router.push("profile")
+            router.push("/")
         } catch (error:any) {
+            alert("Invalid email or password!")
             console.log("Login failed",error.message);
             toast.error(error.message)
         }finally{
@@ -33,12 +34,13 @@ export default function LoginPage() {
     return (
         <>
             <div className="w-auto max-h-screen flex justify-center items-center  flex-col p-20 ">
-                <h1 className="text-2xl">Login</h1>
+            <div className="p-5 bg-slate-50 rounded-md font-medium flex flex-col justify-center items-center">
+               <h1 className="text-2xl font-mono text-black">Login</h1>
                 <hr />
                 <div className="p-5">
-                <label htmlFor="email" className="text-xl">email id : </label>
+                <label htmlFor="email" className="text-xl font-mono text-black">Email Id : </label>
                 <input
-                    className="text-black p-2"
+                    className="text-black p-2  bg-slate-200 rounded-sm"
                     type="email"
                     id="email"
                     value={user.email}
@@ -47,22 +49,23 @@ export default function LoginPage() {
                 </div>
                     <br />
                 <div className="p-5">
-                <label htmlFor="password" className="text-xl">password : </label>
+                <label htmlFor="password" className="text-xl font-mono text-black">Password : </label>
                 <input
-                    className="text-black p-2"
+                    className="text-black p-2 bg-slate-200 rounded-sm" 
                     type="password"
                     id="password"
                     value={user.password}
                     placeholder="password"
                     onChange={(e) => setUser({ ...user, password: e.target.value })} />
                 </div>
-                <div>
-                    <button onClick={onLogin} className="p-3 bg-orange-400">Login</button>
+                <div >
+                    <button onClick={onLogin} className=" p-2 mx-5 bg-orange-600 font-bold font-mono rounded-sm">Login</button>
                 </div>
                 <div className="p-5">
-                    <Link href="/signup">Signup now</Link>
+                    <Link href="/signup" className="text-blue-600 underline">Signup now</Link>
                 </div>
-                <p className="text-xl">{Loading ? "Processing......." : ""}</p>
+                <p className="text-sm font-mono text-black ">{Loading ? "Processing......." : ""}</p>
+               </div>
             </div>
         </>
     )
